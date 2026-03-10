@@ -1,0 +1,29 @@
+- type: entity
+  id: DoomArcadeMachine
+  name: UAC arcade
+  description: Rip and tear.
+  parent: ArcadeBase
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/arcade.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: arcade
+    - map: ["computerLayerScreen"]
+      state: screen_spacevillain
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      state: panel
+      visible: false
+  - type: PointLight
+    color: "#d94b3d"
+  - type: DoomArcade
+  - type: ActivatableUI
+    key: enum.DoomArcadeUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: StationAiWhitelist
+  - type: UserInterface
+    interfaces:
+      enum.DoomArcadeUiKey.Key:
+        type: DoomArcadeBui
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
