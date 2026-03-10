@@ -26,6 +26,7 @@ public sealed partial class DoomArcadeMenu : DefaultWindow
     {
         var game = _gameControl.Game;
         ScoreLabel.Text = $"SCORE: {game.Score}";
+        WaveLabel.Text = $"WAVE: {game.Wave}";
         HpLabel.Text = $"HP: {game.PlayerHp}";
         AmmoLabel.Text = $"AMMO: {game.PlayerAmmo}";
     }

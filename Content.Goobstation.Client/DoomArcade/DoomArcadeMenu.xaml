@@ -6,9 +6,11 @@
         <BoxContainer Orientation="Horizontal" HorizontalExpand="True" MinHeight="30">
             <Label Name="ScoreLabel" Text="SCORE: 0" HorizontalExpand="True"
                    StyleClasses="LabelMono" />
-            <Label Name="HpLabel" Text="HP: 100"
+            <Label Name="WaveLabel"  Text="WAVE: 1"  Margin="10 0 0 0"
                    StyleClasses="LabelMono" />
-            <Label Name="AmmoLabel" Text="AMMO: 50" Margin="10 0 0 0"
+            <Label Name="HpLabel"   Text="HP: 100"   Margin="10 0 0 0"
+                   StyleClasses="LabelMono" />
+            <Label Name="AmmoLabel" Text="AMMO: 50"  Margin="10 0 0 0"
                    StyleClasses="LabelMono" />
         </BoxContainer>
 
@@ -16,8 +18,8 @@
                  MinHeight="320" MinWidth="480" />
 
         <BoxContainer Orientation="Horizontal" HorizontalExpand="True" MinHeight="30">
-            <Label Text="WASD: Move | Arrows: Turn/Shoot"
-       StyleClasses="LabelMono" />
+            <Label Text="WASD: Move | Arrows: Turn/Shoot | Green=Medkit Yellow=Ammo"
+                   StyleClasses="LabelMono" />
         </BoxContainer>
     </BoxContainer>
 </DefaultWindow>
