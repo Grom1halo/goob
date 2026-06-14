@@ -1,0 +1,84 @@
+# === Heavy Laser with Distance Falloff ===
+- type: entity
+  parent: WeaponLaserCarbine
+  id: WeaponHeavyLaserGoob
+  name: heavy laser cannon
+  suffix: Distance Falloff
+  description: A devastating energy weapon. Extremely effective at close range but loses power over distance. Useless in fog. Deadly in vacuum.
+  components:
+  - type: Gun
+    fireRate: 0.8
+  - type: HitscanBatteryAmmoProvider
+    proto: HeavyLaserGoob
+    fireCost: 200
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: DistanceDamageFalloff
+    optimalRange: 5
+    maxRange: 18
+    minDamageMultiplier: 0.15
+    atmosDamageReduction: 0.4
+    vacuumIgnoresFalloff: true
+
+- type: hitscan
+  id: HeavyLaserGoob
+  damage:
+    types:
+      Heat: 35
+      Shock: 10
+  staminaDamage: 15
+  fireStacks: 2
+  muzzleFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: muzzle_beam_heavy
+  travelFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: beam_heavy
+  impactFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: impact_beam_heavy
+  maxLength: 20
+
+# === X-Ray Penetrating Rifle ===
+- type: entity
+  parent: WeaponLaserCarbine
+  id: WeaponXRayRifleGoob
+  name: X-Ray rifle
+  suffix: Penetrating
+  description: Experimental weapon firing concentrated radiation through walls. Blocked only by plasteel and radiation shielding. Does not damage structures.
+  components:
+  - type: Gun
+    fireRate: 1.2
+  - type: HitscanBatteryAmmoProvider
+    proto: XRayGoob
+    fireCost: 300
+  - type: Battery
+    maxCharge: 1200
+    startingCharge: 1200
+  - type: PenetratingHitscan
+    penetrationFalloff: 0.25
+    blockedByTags:
+    - Plasteel
+    - RadiationShield
+    maxPenetrations: 4
+    allowedDamageTypes:
+    - Radiation
+    - Cellular
+
+- type: hitscan
+  id: XRayGoob
+  damage:
+    types:
+      Radiation: 20
+      Cellular: 15
+  muzzleFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: muzzle_xray
+  travelFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: xray
+  impactFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: impact_xray
+  maxLength: 25

@@ -1,0 +1,59 @@
+diff --git a/Content.Server/Weapons/Ranged/Systems/GunSystem.cs b/Content.Server/Weapons/Ranged/Systems/GunSystem.cs
+index 702fffed0b..17f4c350fa 100644
+--- a/Content.Server/Weapons/Ranged/Systems/GunSystem.cs
++++ b/Content.Server/Weapons/Ranged/Systems/GunSystem.cs
+@@ -152,6 +152,8 @@
+ using Content.Shared._Shitmed.Targeting;
+ using Content.Shared.Body.Components;
+ using Robust.Shared.Random; // Lavaland Change
++//using Content.Goobstation.Shared.AdvancedHitscan; // Goobstation
++using Content.Goobstation.Shared.AdvancedHitscan;
+ 
+ namespace Content.Server.Weapons.Ranged.Systems;
+ 
+@@ -171,6 +173,8 @@ public sealed partial class GunSystem : SharedGunSystem
+     [Dependency] private readonly EntityLookupSystem _lookup = default!;
+     [Dependency] private readonly IConfigurationManager _cfg = default!;
+ 
++    
++
+     private const float DamagePitchVariation = 0.05f;
+     private float _crawlHitzoneSize; // Goobstation
+ 
+@@ -283,8 +287,19 @@ public override void Shoot(EntityUid gunUid, GunComponent gun, List<(EntityUid?
+                     CreateAndFireProjectiles(ent.Value, newAmmo);
+ 
+                     break;
++
+                 case HitscanPrototype hitscan:
+ 
++                    // Goobstation - X-Ray Intercept Start
++                    var beforeEv = new BeforeHitscanFiredEvent(gunUid, user, hitscan, fromMap, mapDirection.Normalized());
++                    RaiseLocalEvent(gunUid, ref beforeEv);
++                    if (beforeEv.Handled)
++                    {
++                        Audio.PlayPredicted(gun.SoundGunshotModified, gunUid, user);
++                        break;
++                    }
++                    // Goobstation - X-Ray Intercept End
++
+                     EntityUid? lastHit = null;
+ 
+                     var from = fromMap;
+@@ -354,6 +369,16 @@ public override void Shoot(EntityUid gunUid, GunComponent gun, List<(EntityUid?
+ 
+                         var dmg = hitscan.Damage;
+ 
++                        // Goobstation - Hitscan Falloff & Atmos Start
++                        if (dmg != null)
++                        {
++                            var hitDist = (_transform.GetMapCoordinates(hitEntity).Position - fromMap.Position).Length();
++                            var modifyEv = new HitscanDamageModifyEvent(gunUid, user, hitEntity, hitscan, hitDist, dmg);
++                            RaiseLocalEvent(gunUid, ref modifyEv);
++                            dmg = modifyEv.Damage;
++                        }
++                        // Goobstation - Hitscan Falloff & Atmos End
++
+                         var hitName = ToPrettyString(hitEntity);
+                         // Goob edit start
+                         if (dmg != null)

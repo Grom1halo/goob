@@ -1,3 +1,14 @@
+# Goob-Station custom content
+
+Наработки для форка Goob-Station (Space Station 14).
+
+## 📦 Содержимое репозитория
+
+- [DoomArcade](#-doomarcade--аркадный-автомат-с-doom-like-шутером-для-space-station-14-goob-station) — аркадный автомат с Doom-like шутером
+- [AdvancedHitscan](AdvancedHitscan-README.md) — лазер с поджигом и затуханием урона по дистанции, рентгеновская пробивающая винтовка
+
+---
+
 # 🎮 DoomArcade — аркадный автомат с Doom-like шутером для Space Station 14 (Goob-Station)
 
 Полноценная мини-игра в стиле Doom, встроенная в игровой мир SS14 в виде аркадного автомата. Реализует raycasting-рендер с текстурами, волновой спавн врагов, пикапы аптечек и патронов, прогрессию сложности и сохранение рекорда на сервере.
